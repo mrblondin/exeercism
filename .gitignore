@@ -1,0 +1,17 @@
+# MAC OS shit
+.DS_Store
+
+# Test C redundant
+*/test-framework/*
+makefile
+*.out
+*.out.*
+*/test_*
+
+# Hidden files
+.*
+*/.*
+!.gitignore
+
+*/HELP.md
+*/README.md
