@@ -1,8 +1,9 @@
 #include "space_age.h"
 
 #define SECONDS_PER_YEAR_ON_EARTH (365.25 * 24 * 60 * 60)
+#define ERROR -1
 
-struct Planet planets[] = {
+static struct Planet planets[] = {
   {MERCURY, 0.2408467},
   {VENUS, 0.61519726},
   {EARTH, 1.0},
@@ -15,5 +16,6 @@ struct Planet planets[] = {
 
 
 float age(planet_t planet, int64_t seconds) {
+  if (planet < MERCURY || planet > NEPTUNE) return ERROR;
   return (seconds / SECONDS_PER_YEAR_ON_EARTH / planets[planet].orbitalPeriod);
 }
