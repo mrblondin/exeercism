@@ -5,14 +5,14 @@ export class GradeSchool {
   }
 
   roster() {
-    return JSON.parse(JSON.stringify(this._roster));;
+    return JSON.parse(JSON.stringify(this._roster));
   }
 
   add(name, grade) {
     // check if the name is already exists
     for (const key in this._roster){
       const cur_grade = this._roster[key];
-      if (cur_grade.indexOf(name) !== -1 && cur_grade.splice(cur_grade.indexOf(name)))
+      if (cur_grade.indexOf(name) !== -1 && cur_grade.splice(cur_grade.indexOf(name), 1))
         return;
     }
 
