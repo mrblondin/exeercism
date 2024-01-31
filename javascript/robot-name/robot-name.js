@@ -1,8 +1,5 @@
-const DIGIT_NUM = 3;
-const LETTER_NUM = 2;
-const NUM = 5;
-const LETTERS_AMOUNT = 26;
-const DIGITS_AMOUNT = 10;
+// the whole bunch of tests performed in 15 seconds.
+
 const TOTAL_NUMBER_OF_NAMES = 26 * 26 * 10 * 10 * 10;
 
 export class Robot {
@@ -16,28 +13,30 @@ export class Robot {
 
   reset = () => this._name = this.#generate_name();
 
-  static randomLetter = _ => String.fromCharCode(0|Math.random() * 26 + 65);
-  static randomDigit = _ => 0|Math.random() * 9;
+  static to_char = num => String.fromCharCode(num + 65);
 
   #generate_name = () => {
     let code = null;
-    while (!code){
-      const letter_code = Array(LETTER_NUM).fill().map(Robot.randomLetter).join('');
-      const digit_code = Array(DIGIT_NUM).fill().map(Robot.randomDigit).join('');
-      code = letter_code + digit_code;
-      code = Robot.names.has(code) ? null : code;
-      //if (code = Robot.names.has(code) != true)
-      //  break;
+    let letter_code = [];
+    let digit_code = [];
+    let number_code = (0|Math.random() * TOTAL_NUMBER_OF_NAMES);
 
-      // code exists, change each sign one by one
-      //for (let i = 0; i < NUM; i++){
-      //  for (let j = 0; j < (i < 2 ) ? LETTERS_AMOUNT : DIGITS_AMOUNT; j++)
-      //  while (!code){
-      //    code[i] 
-      //  }
-      //}
+    while (!code){
+      if (Robot.names.has(number_code) == true){
+        number_code = (number_code + 1) % TOTAL_NUMBER_OF_NAMES;
+        continue;
+      }
+
+      letter_code[0] = Math.floor(number_code / 26 / 10 / 10 / 10);
+      letter_code[1] = Math.floor(number_code / 10 / 10 / 10) % 26;
+      digit_code[0]  = Math.floor(number_code / 10 / 10) % 10;
+      digit_code[1]  = Math.floor(number_code / 10) % 10;
+      digit_code[2]  = number_code % 10;
+
+      code = letter_code.map(Robot.to_char).join('') + digit_code.join('');
+      break;
     }
-    Robot.names.add(code);
+    Robot.names.add(number_code);
     return code;
   }
 }
