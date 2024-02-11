@@ -1,6 +1,7 @@
 #include "anagram.h"
 #include <assert.h>
 #include <string.h>
+#include <strings.h>
 
 #define ALPHABET_COUNT 26
 
