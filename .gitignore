@@ -1,0 +1,39 @@
+# MAC OS shit
+.DS_Store
+
+# Test C redundant
+test-framework/
+test_*.c
+makefile
+*.out
+*.out.*
+test_*
+test/
+
+# Test JS
+*babel.config.js
+*package*.json
+*package-lock.json
+*global.d.ts
+*.spec.js
+node_modules*
+
+# Test python
+*_test.py
+*_test_data.py
+__pycache__/
+
+# Hidden files
+.*
+*/.*
+!.gitignore
+c/*/.gitignore
+javascript/*/.gitignore
+python/*/.gitignore
+
+
+# Text files
+*HELP*.md
+*README.md
+*HINTS.md
+*LICENSE*

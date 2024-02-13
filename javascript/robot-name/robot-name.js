@@ -22,7 +22,7 @@ export class Robot {
     let number_code = (0|Math.random() * TOTAL_NUMBER_OF_NAMES);
 
     while (!code){
-      if (Robot.names.has(number_code) == true){
+      if (Robot.names.has(number_code) === true){
         number_code = (number_code + 1) % TOTAL_NUMBER_OF_NAMES;
         continue;
       }
