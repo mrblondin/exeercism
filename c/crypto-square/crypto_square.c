@@ -9,27 +9,41 @@ static void normalize(const char *input, char **output){
   int i = 0;
   while (*input){
     if (isalnum(*input))
-      *output[i++] = tolower(*input);
+      (*output)[i++] = tolower(*input);
     input++;
   }
 }
 
 char *ciphertext(const char *input){
   assert(input);
-  char * n_input = calloc(strlen(input), sizeof(char));
+
+  // calloc and 0 length workaround
+  int ilength = strlen(input);
+  char * n_input = calloc(ilength ? ilength : 1, sizeof(char));
+  if (!n_input) return NULL;
+  if (ilength == 0) return n_input;
+
   normalize(input, &n_input);
   int length = strlen(n_input);
-  int cols = pow(length, 0.5) + 1;
-  int rows = cols * (cols - 1) <= length ? cols - 1 : cols;
+  
+  // determine amount of rows and cols
+  int cols = pow(length, 0.5);
+  cols = cols * cols == length ? cols : cols + 1;
+  int rows = cols * (cols - 1) >= length ? cols - 1 : cols;
 
-  char arr[rows][cols];
-  char * text = n_input;
+  char * output = calloc((cols + 1) * rows, sizeof(char));
+  if (!output) return NULL;
 
-  for (int row; row < rows; row++){
-    for (int col; col < cols; col++){
-      arr[row][col] = *n_input;
+  // filling it the result string
+  int i = 0;
+  for (int col = 0; col < cols; col++){
+    for (int row = col; row < col + cols*rows; row += cols){
+      output[i++] = n_input[row] ? n_input[row] : ' ';
     }
+    if (col != cols - 1) output[i++] = ' ';
   }
 
-  return "";
+  free(n_input);
+
+  return output;
 }
