@@ -1,16 +1,16 @@
-export const spiralMatrix = (n) => {
-  const matrix = Array(n).fill([]).map(_ => Array(n));
-  let i = 1, b = 0; // b = border thickness
-  for (; b < n / 2; b++){
-    let x = b, y = b, l = n - 2 * b;
-    for (let j = 0; j < (4 * (l - 1) ? 4 * (l - 1) : 1); j++, i++){
-      const adj = j / (l-1);
-      if (adj === 0) {/* pass */}
-      else if (adj <= 1) x++;
-      else if (adj <= 2) y++;
-      else if (adj <= 3) x--;
-      else if (adj <= 4) y--;
-      matrix[y][x] = i;
+export const spiralMatrix = (dim) => {
+  const matrix = Array(dim).fill([]).map(_ => Array(dim));
+  let counter = 1, border = 0;
+  for (; border < dim / 2; ++border){
+    let row = border, col = border, len = dim - 2 * border - 1;
+    for (let progress = 0; progress < (4 * len ? 4 * len : 1); ++progress, ++counter){
+      const side = progress / len;
+      if (side === 0) {/* starting point / center */}
+      else if (side <= 1) row++;
+      else if (side <= 2) col++;
+      else if (side <= 3) row--;
+      else if (side <= 4) col--;
+      matrix[col][row] = counter;
     }
   }
   return matrix;
