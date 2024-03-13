@@ -1,15 +1,15 @@
 export const spiralMatrix = (dim) => {
   const matrix = Array(dim).fill([]).map(_ => Array(dim));
-  let counter = 1, border = 0;
-  for (; border < dim / 2; ++border){
-    let row = border, col = border, len = dim - 2 * border - 1;
-    for (let progress = 0; progress < (4 * len ? 4 * len : 1); ++progress, ++counter){
-      const side = progress / len;
-      if (side === 0) {/* starting point / center */}
-      else if (side <= 1) row++;
-      else if (side <= 2) col++;
-      else if (side <= 3) row--;
-      else if (side <= 4) col--;
+  for (let counter = 1, depth = 0; depth < dim / 2; ++depth){
+    let row = depth, col = depth, side = dim - 2 * depth - 1;
+    for (let progress = 0; progress < (4 * side || 1); ++progress, ++counter){
+      switch(Math.ceil(progress / side)){
+        case 0: break; /* starting point / center -- don't move yet */
+        case 1: ++row; break;
+        case 2: ++col; break;
+        case 3: --row; break;
+        case 4: --col; break;
+      }
       matrix[col][row] = counter;
     }
   }
